@@ -1,0 +1,63 @@
+---
+import electricusLogo from '../assets/electricus-logo.webp';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="La supervision de vos bornes de charge sur mesure pour les entreprises et professionnels du tourisme." />
+    <title>Electricus</title>
+  </head>
+  <body>
+    <main>
+      <img
+        src={electricusLogo.src}
+        width={electricusLogo.width}
+        height={electricusLogo.height}
+        alt="Electricus"
+        class="logo"
+      />
+      <h1>La supervision de vos bornes de charge sur mesure</h1>
+      <p>Pour les entreprises et professionnels du tourisme</p>
+      <p><strong><em>SITE EN CONSTRUCTION</em></strong></p>
+      <p class="origin">Made in Normandy</p>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    background: #fff;
+    color: #000;
+    font: 1rem / 1.5 system-ui, sans-serif;
+  }
+
+  main {
+    max-width: 700px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 6vw, 6.5rem);
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .logo {
+    display: block;
+    width: min(100%, 406px);
+    height: auto;
+  }
+
+  h1,
+  p {
+    margin: 0;
+    font: inherit;
+  }
+
+  .origin {
+    padding: 1.25rem 2.375rem;
+    background: #235b3b;
+    color: #fff;
+  }
+</style>
