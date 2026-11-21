@@ -1,0 +1,36 @@
+---
+import arrow from 'lucide-static/icons/arrow-up-right.svg?raw';
+import building from 'lucide-static/icons/building-2.svg?raw';
+import chart from 'lucide-static/icons/chart-no-axes-combined.svg?raw';
+import check from 'lucide-static/icons/check.svg?raw';
+import coins from 'lucide-static/icons/coins.svg?raw';
+import factory from 'lucide-static/icons/factory.svg?raw';
+import house from 'lucide-static/icons/house.svg?raw';
+import mail from 'lucide-static/icons/mail.svg?raw';
+import menu from 'lucide-static/icons/menu.svg?raw';
+import phone from 'lucide-static/icons/phone.svg?raw';
+import plug from 'lucide-static/icons/plug-zap.svg?raw';
+import receipt from 'lucide-static/icons/receipt-text.svg?raw';
+import users from 'lucide-static/icons/users.svg?raw';
+
+const icons = {
+  'arrow-up-right': arrow,
+  'building-2': building,
+  'chart-no-axes-combined': chart,
+  check,
+  coins,
+  factory,
+  house,
+  mail,
+  menu,
+  phone,
+  'plug-zap': plug,
+  'receipt-text': receipt,
+  users,
+};
+
+interface Props { name: keyof typeof icons }
+const { name } = Astro.props;
+---
+
+<span class="icon" aria-hidden="true" set:html={icons[name]} />

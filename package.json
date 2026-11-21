@@ -8,6 +8,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^7.4.13"
+    "astro": "^7.4.13",
+    "lucide-static": "^1.77.0"
   }
 }

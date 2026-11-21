@@ -1,0 +1,109 @@
+---
+import Brand from '../components/Brand.astro';
+import Icon from '../components/Icon.astro';
+import { contact, services } from '../content/site';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL('/images/charging-office.webp', Astro.site);
+const links = [
+  { label: 'Solutions', href: '/#solutions' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#20583F" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Electricus" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="355" />
+    <meta property="og:image:alt" content="Voiture électrique en recharge devant un bâtiment professionnel" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <div class="header-brand">
+          <Brand />
+          <span class="brand-caption">Solutions de recharge<br />pour les professionnels</span>
+        </div>
+        <nav class="desktop-nav" aria-label="Navigation principale">
+          {links.map(({ label, href }) => (
+            <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>{label}</a>
+          ))}
+          <a class="button button-green" href="/contact/#projet">
+            Parlons de votre projet <Icon name="arrow-up-right" />
+          </a>
+        </nav>
+        <details class="mobile-nav">
+          <summary><Icon name="menu" /> Menu</summary>
+          <nav aria-label="Navigation principale">
+            {links.map(({ label, href }) => (
+              <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>{label}</a>
+            ))}
+            <a class="button button-green" href="/contact/#projet">Parlons de votre projet <Icon name="arrow-up-right" /></a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1"><slot /></main>
+
+    <footer class="wrap site-footer">
+      <div class="footer-brand">
+        <Brand />
+        <p>Electricus est une marque de <strong>CECANA</strong>.</p>
+      </div>
+      <div>
+        <p class="footer-title">Nos solutions</p>
+        <ul>
+          <li><a href="/entreprises/">Entreprises</a></li>
+          <li><a href="/hotellerie-tourisme/">Hôtellerie &amp; tourisme</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title"><a href="/services/">Nos services</a></p>
+        <ul>
+          {services.map(({ id, name }) => <li><a href={`/services/#${id}`}>{name}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title"><a href="/contact/">Contact</a></p>
+        <address>
+          <a href={contact.phoneHref}>{contact.phone}</a>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </address>
+      </div>
+      <div class="footer-legal">
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/confidentialite/">Confidentialité</a>
+      </div>
+    </footer>
+    <script>
+      const menu = document.querySelector<HTMLDetailsElement>('.mobile-nav');
+      menu?.addEventListener('click', (event) => {
+        if (event.target instanceof Element && event.target.closest('a')) menu.open = false;
+      });
+    </script>
+  </body>
+</html>

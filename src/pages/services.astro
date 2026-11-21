@@ -1,0 +1,30 @@
+---
+import ContactBanner from '../components/ContactBanner.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const description = 'Découvrez les services Electricus : supervision, gestion des accès, tarification et notes de frais pour la recharge à domicile.';
+---
+
+<SiteLayout title="Services de supervision et d’exploitation — Electricus" description={description}>
+  <div class="page-intro">
+    <div class="wrap page-intro-inner">
+      <p class="eyebrow with-rule">Nos services</p>
+      <h1>Confiez-nous l’exploitation de vos bornes.</h1>
+      <p class="page-lead">Du suivi de vos bornes à la tarification, Electricus prend en charge les opérations de recharge pour les entreprises et les professionnels du tourisme.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <section class="section service-details" aria-label="Le détail des services">
+      {services.map((service) => (
+        <article id={service.id} class="detail-card">
+          <span class="icon-tile"><Icon name={service.icon} /></span>
+          <h2>{service.name}</h2>
+          <p>{service.detail}</p>
+        </article>
+      ))}
+    </section>
+    <ContactBanner />
+  </div>
+</SiteLayout>

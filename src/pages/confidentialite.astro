@@ -1,0 +1,16 @@
+---
+import { contact } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Confidentialité — Electricus" description="Informations sur l’utilisation des données lorsque vous contactez Electricus.">
+  <article class="wrap legal-page">
+    <h1>Confidentialité</h1>
+    <h2>Vos demandes de contact</h2>
+    <p>Le formulaire prépare le texte de votre message dans votre messagerie. CECANA reçoit vos coordonnées et les informations que vous fournissez lorsque vous envoyez le message. Ces informations servent à répondre à votre demande et à échanger au sujet de votre projet.</p>
+    <h2>Navigation sur le site</h2>
+    <p>Le site n’utilise aucun outil de suivi d’audience. L’hébergement est assuré par GitHub Pages. Consultez la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement">déclaration de confidentialité de GitHub</a> pour en savoir plus sur ses traitements.</p>
+    <h2>Vos questions et vos droits</h2>
+    <p>Pour toute question sur vos données ou pour exercer vos droits, contactez CECANA à <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+  </article>
+</SiteLayout>

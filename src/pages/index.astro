@@ -1,63 +1,95 @@
 ---
-import electricusLogo from '../assets/electricus-logo.webp';
+import ContactBanner from '../components/ContactBanner.astro';
+import Icon from '../components/Icon.astro';
+import { services, solutions } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const audiences = [
+  { icon: 'building-2', title: 'Entreprises', text: 'Collaborateurs, flottes, visiteurs' },
+  { icon: 'factory', title: 'Sites d’activité', text: 'Bureaux, sites industriels et logistiques' },
+  { icon: 'house', title: 'Hôtellerie & tourisme', text: 'Hôtels, campings, gîtes, résidences' },
+] as const;
 ---
 
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="La supervision de vos bornes de charge sur mesure pour les entreprises et professionnels du tourisme." />
-    <title>Electricus</title>
-  </head>
-  <body>
-    <main>
-      <img
-        src={electricusLogo.src}
-        width={electricusLogo.width}
-        height={electricusLogo.height}
-        alt="Electricus"
-        class="logo"
-      />
-      <h1>La supervision de vos bornes de charge sur mesure</h1>
-      <p>Pour les entreprises et professionnels du tourisme</p>
-      <p><strong><em>SITE EN CONSTRUCTION</em></strong></p>
-      <p class="origin">Made in Normandy</p>
-    </main>
-  </body>
-</html>
+<SiteLayout
+  title="Electricus — Supervision de bornes de recharge pour les professionnels"
+  description="Electricus supervise et exploite les bornes de recharge des entreprises, hôtels et professionnels du tourisme. Parlons de votre projet."
+>
+  <section class="hero" aria-labelledby="home-title">
+    <img
+      class="hero-photo"
+      src="/images/charging-office.webp"
+      width="512"
+      height="355"
+      alt="Voiture en recharge devant un immeuble de bureaux"
+      fetchpriority="high"
+    />
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Supervision et exploitation de bornes de recharge</p>
+        <h1 id="home-title">La recharge électrique qui s’adapte à votre activité.</h1>
+        <p class="hero-lead">Entreprises, hôtels et professionnels du tourisme&nbsp;: simplifiez la recharge de vos collaborateurs et de vos clients.</p>
+        <div class="button-row">
+          <a class="button button-cyan" href="/contact/#projet">Parler de mon projet <Icon name="arrow-up-right" /></a>
+          <a class="button button-outline" href="#solutions">Découvrir nos solutions</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<style>
-  body {
-    margin: 0;
-    background: #fff;
-    color: #000;
-    font: 1rem / 1.5 system-ui, sans-serif;
-  }
+  <div class="wrap">
+    <ul class="audience" aria-label="À qui s’adresse Electricus">
+      {audiences.map(({ icon, title, text }) => (
+        <li>
+          <Icon name={icon} />
+          <div><p class="audience-title">{title}</p><p>{text}</p></div>
+        </li>
+      ))}
+    </ul>
 
-  main {
-    max-width: 700px;
-    margin-inline: auto;
-    padding-inline: clamp(1rem, 6vw, 6.5rem);
-    display: grid;
-    gap: 1.5rem;
-  }
+    <section id="solutions" class="section solutions" aria-labelledby="solutions-title">
+      <h2 id="solutions-title" class="visually-hidden">Nos solutions de recharge</h2>
+      <div class="solution-grid">
+        {Object.values(solutions).map((solution) => (
+          <article class="solution-card">
+            <img src={solution.image} alt={solution.imageAlt} width={solution.width} height={solution.height} loading="lazy" decoding="async" />
+            <div class="solution-copy">
+              <p class="eyebrow">{solution.name}</p>
+              <h3>{solution.heading}</h3>
+              <ul class="checks">
+                {solution.benefits.map((benefit) => <li><Icon name="check" />{benefit}</li>)}
+              </ul>
+              <a class="text-link" href={solution.href}>
+                En savoir plus <span class="visually-hidden">— {solution.name}</span> <Icon name="arrow-up-right" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-  .logo {
-    display: block;
-    width: min(100%, 406px);
-    height: auto;
-  }
+    <section class="section" aria-labelledby="services-title">
+      <p class="eyebrow with-rule">Nos services</p>
+      <h2 id="services-title">Electricus supervise et opère vos bornes de charge.</h2>
+      <div class="service-grid">
+        {services.map((service) => (
+          <article class="service-card">
+            <span class="icon-tile"><Icon name={service.icon} /></span>
+            <h3><a href={`/services/#${service.id}`}>{service.name}</a></h3>
+            <p>{service.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-  h1,
-  p {
-    margin: 0;
-    font: inherit;
-  }
+    <section class="section presentation" aria-labelledby="presentation-title">
+      <div class="presentation-title">
+        <Icon name="plug-zap" />
+        <h2 id="presentation-title">Vous gérez votre activité. Nous opérons votre recharge.</h2>
+      </div>
+      <p>Confiez l’exploitation quotidienne de vos bornes à Electricus. Nous suivons leur utilisation et mettons en œuvre les règles d’accès et les tarifs adaptés à vos sites et à vos usagers.</p>
+    </section>
 
-  .origin {
-    padding: 1.25rem 2.375rem;
-    background: #235b3b;
-    color: #fff;
-  }
-</style>
+    <ContactBanner />
+  </div>
+</SiteLayout>

@@ -1,0 +1,91 @@
+---
+import Icon from '../components/Icon.astro';
+import { contact } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const description = 'Présentez votre projet de recharge à Electricus. Contactez Franck Martin par téléphone ou par e-mail.';
+const emailHref = `mailto:${contact.email}`;
+---
+
+<SiteLayout title="Contact — Electricus" description={description}>
+  <div class="page-intro">
+    <div class="wrap page-intro-inner">
+      <p class="eyebrow with-rule">Contact</p>
+      <h1>Parlons de votre projet.</h1>
+      <p class="page-lead">Vous exploitez déjà des bornes ou préparez un projet de recharge&nbsp;? Parlez-nous de vos sites, de vos usagers et de vos besoins.</p>
+    </div>
+  </div>
+  <div class="wrap contact-grid section">
+    <section class="contact-methods" aria-labelledby="direct-contact">
+      <h2 id="direct-contact">Joindre Franck Martin</h2>
+      <address>
+        <a href={contact.phoneHref}><Icon name="phone" /> {contact.phone}</a>
+        <a href={emailHref}><Icon name="mail" /> {contact.email}</a>
+      </address>
+    </section>
+
+    <section class="contact-form-panel" id="projet" aria-labelledby="contact-form-title">
+      <h2 id="contact-form-title">Présentez votre projet</h2>
+      <p id="contact-instructions">Le formulaire ouvre un brouillon dans votre messagerie. Vous pourrez le relire et l’envoyer.</p>
+      <form id="project-form" aria-labelledby="contact-form-title" aria-describedby="contact-instructions form-required" data-recipient={emailHref} hidden>
+        <p id="form-required" class="form-note">Les champs marqués d’un astérisque sont obligatoires.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="full-name">Nom <span aria-hidden="true">*</span></label>
+            <input id="full-name" name="name" autocomplete="name" maxlength="100" required />
+          </div>
+          <div class="field">
+            <label for="email">Adresse e-mail <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="180" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="organization">Entreprise ou établissement</label>
+          <input id="organization" name="organization" autocomplete="organization" maxlength="120" />
+        </div>
+        <div class="field">
+          <label for="message">Votre projet <span aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" rows="5" maxlength="800" required></textarea>
+        </div>
+        <button class="button button-green" type="submit">Ouvrir le brouillon d’e-mail <Icon name="arrow-up-right" /></button>
+      </form>
+      <noscript><p><a href={emailHref}>Écrire à Electricus</a> depuis votre messagerie.</p></noscript>
+      <p class="form-note form-status" role="status" id="contact-status"></p>
+      <a class="text-link" id="draft-link" hidden>Rouvrir le brouillon d’e-mail <Icon name="arrow-up-right" /></a>
+    </section>
+  </div>
+</SiteLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#project-form');
+  const draftLink = document.querySelector<HTMLAnchorElement>('#draft-link');
+  const status = document.querySelector('#contact-status');
+  const recipient = form?.dataset.recipient;
+
+  if (form && draftLink && status && recipient) {
+    form.hidden = false;
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const values = new FormData(form);
+      const name = String(values.get('name')).trim();
+      const email = String(values.get('email')).trim();
+      const organization = String(values.get('organization')).trim();
+      const message = String(values.get('message')).trim();
+
+      const body = [
+        'Bonjour,',
+        '',
+        message,
+        '',
+        `Nom : ${name}`,
+        `E-mail : ${email}`,
+        ...(organization ? [`Entreprise ou établissement : ${organization}`] : []),
+      ].join('\r\n');
+
+      draftLink.href = `${recipient}?subject=${encodeURIComponent('Projet de recharge électrique')}&body=${encodeURIComponent(body)}`;
+      draftLink.hidden = false;
+      status.textContent = 'Envoyez le brouillon depuis votre messagerie. Si elle ne s’ouvre pas, vous pouvez utiliser les coordonnées ci-contre.';
+      draftLink.click();
+    });
+  }
+</script>

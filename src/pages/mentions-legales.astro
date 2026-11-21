@@ -1,0 +1,17 @@
+---
+import { contact } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Mentions légales — Electricus" description="Informations sur l’éditeur et l’hébergeur du site Electricus.">
+  <article class="wrap legal-page">
+    <h1>Mentions légales</h1>
+    <h2>Éditeur du site</h2>
+    <p>Electricus est une marque de CECANA, société par actions simplifiée immatriculée au RCS de Caen sous le numéro SIREN 931&nbsp;772&nbsp;289.</p>
+    <address>3 route de Bellefontaine<br />14400 Condé-sur-Seulles, France</address>
+    <p><a href={contact.phoneHref}>{contact.phone}</a><br /><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+    <h2>Hébergement</h2>
+    <p>GitHub Pages, GitHub, Inc.<br />88 Colin P. Kelly Jr. Street<br />San Francisco, CA 94107, États-Unis</p>
+    <p><a href="https://support.github.com/">Contacter GitHub</a></p>
+  </article>
+</SiteLayout>

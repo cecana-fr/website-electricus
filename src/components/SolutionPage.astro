@@ -1,0 +1,40 @@
+---
+import { type Solution } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ContactBanner from './ContactBanner.astro';
+import Icon from './Icon.astro';
+
+interface Props { solution: Solution }
+const { solution } = Astro.props;
+---
+
+<SiteLayout title={`${solution.name} — Electricus`} description={solution.description}>
+  <div class="page-intro">
+    <div class="wrap detail-intro">
+      <div>
+        <a class="back-link" href="/#solutions">Nos solutions</a>
+        <p class="eyebrow with-rule">{solution.name}</p>
+        <h1>{solution.heading}</h1>
+        <p class="page-lead">{solution.description}</p>
+        <a class="button button-green" href="/contact/#projet">Parler de mon projet <Icon name="arrow-up-right" /></a>
+      </div>
+      <img src={solution.image} alt={solution.imageAlt} width={solution.width} height={solution.height} fetchpriority="high" />
+    </div>
+  </div>
+  <div class="wrap">
+    <section class="section" aria-labelledby="benefits-title">
+      <h2 id="benefits-title">La recharge au quotidien</h2>
+      <div class="detail-grid">
+        {solution.details.map(({ heading, text }) => (
+          <article class="detail-card">
+            <span class="icon-tile"><Icon name="check" /></span>
+            <h3>{heading}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+      <a class="text-link" href="/services/">Voir les services Electricus <Icon name="arrow-up-right" /></a>
+    </section>
+    <ContactBanner />
+  </div>
+</SiteLayout>
