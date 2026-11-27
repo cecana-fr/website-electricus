@@ -1,7 +1,7 @@
 export const contact = {
-  email: 'franck.martin@electricus.fr',
-  phone: '+33 6 70 67 63 13',
-  phoneHref: 'tel:+33670676313',
+  email: 'contact@electricus.fr',
+  phone: '+33 6 51 85 29 69',
+  phoneHref: 'tel:+33651852969',
 };
 
 export const solutions = {
