@@ -9,6 +9,6 @@
   },
   "dependencies": {
     "astro": "^7.4.13",
-    "lucide-static": "^1.77.0"
+    "lucide-static": "^1.80.0"
   }
 }
